@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	let goWriteForm = function() {
+		location.href = "/board-mvc/board/write"
+	}
+</script>
+</head>
+<body>
+	<h2>전체 게시글 조회</h2>
+
+	<table border="1">
+		<tr>
+			<th>번호</th>
+			<th>제목</th>
+			<th>작성자</th>
+			<th>등록일</th>
+		</tr>
+		<tr th:each="board : ${boardList}">
+			<td th:text="${ board.no }">123</td>
+			<td th:text="${ board.title}">헬로 스프링~~</td>
+			<td th:text="${ board.writer}">윤길동</td>
+			<td th:text="${ board.regDate}">2026-08-26</td>
+		</tr>
+		
+	</table>
+	<br>
+	<button onclick="goWriteForm()">새글등록</button>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	let checkForm= function() {
+		let form = document.writerForm
+		if (form.title.value=='') {
+			alert('제목은 필수항목입니다.')
+			form.title.focus();			//커서가 제목에 위치하도록
+			return false
+		}
+		
+		if (form.writer.value=='') {
+			alert('작성자는 필수항목입니다.')
+			form.title.focus();			//커서가 제목에 위치하도록
+			return false
+		}
+		
+		if (form.content.value=='') {
+			alert('내용은 필수항목입니다.')
+			form.title.focus();			//커서가 제목에 위치하도록
+			return false
+		}
+		
+		return true
+	}
+
+</script>
+</head>
+<body>
+	<h2>새글 등록폼</h2>
+	<hr>
+	<form method="post" onsubmit="return checkForm()" name="writeForm">
+		<table border="1">
+			<tr>
+				<th>제목</th>
+				<td>
+					<input type="text" name="title" />
+				</td>
+			</tr>
+			
+			<tr>
+				<th>작성자</th>
+				<td>
+					<input type="text" name="writer" />
+				</td>
+			</tr>
+			
+			<tr>
+				<th>내용</th>
+				<td>
+					<textarea name="content" cols="30" rows="5"></textarea>
+				</td>
+			</tr>
+			
+		</table>
+		<button>등록</button>
+	</form>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

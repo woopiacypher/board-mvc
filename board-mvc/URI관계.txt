@@ -1,0 +1,9 @@
+기본요청 URL   http://localhost:8080/board-mvc
+
+					URI				Controller					View(Thymeleaf)
+main  		 		/				HomeContrller				index.html
+전체게시글조회			/board			BoardController				board/list.html
+상세게시글조회			/board/detail	BoardController				board/detail.html
+새글등록				/board/new		BoardController				board/newBoard.html
+전체회원목록조회		/members		MemberController			member/list.html
+마이페이지				/member/hong	MemberController			member/mypage.html
