@@ -15,17 +15,17 @@ import org.springframework.stereotype.Repository;
 import kr.ac.kopo.board.vo.BoardVO;
 
 /**
- * Oracle DB에서 게시판테이블(tbl_board)에서 CRUD 기능클래스
+ * Oracle DB에서 게시판테이블(tbl_board)에서 CRUD 기능클래스(JDBC)
  */
 
-@Repository
+//@Repository
 public class BoardDAOImpl implements BoardDAO {
 	
 	@Autowired
 	private DataSource ds;
 	
 	@Override
-	public List<BoardVO> selectAll() {		//전체 게시판 내역 출력
+	public List<BoardVO> selectAll() {
 
 		List<BoardVO> boardList = new ArrayList<>();
 		
@@ -39,7 +39,7 @@ public class BoardDAOImpl implements BoardDAO {
 		
 		try {
 			// Connection 객체 얻어오기(dbcp에서)
-			conn = ds.getConnection();			//DB와 연결해주는 표준 인터페이스 API
+			conn = ds.getConnection();
 			// sql를 sql실행객체에 넣어주기
 			pstmt = conn.prepareStatement(sql);
 			// sql실행 후 결과를 얻어오기
@@ -93,14 +93,14 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public void insert(BoardVO board) {		// 새 글 등록
-		
+	public void insert(BoardVO board) {
+
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
-		String sql = "insert into tbl_board(no, title, writer, content)";
-				sql +="	value(seq_tbl_board_no.nextval,?,?,?)";
-		
+		String sql  = "insert into tbl_board(no, title, writer, content) ";
+			   sql += " values(seq_tbl_board_no.nextval, ?, ?, ?) ";
+			   
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -108,27 +108,31 @@ public class BoardDAOImpl implements BoardDAO {
 			pstmt.setString(1, board.getTitle());
 			pstmt.setString(2, board.getWriter());
 			pstmt.setString(3, board.getContent());
+			
+			pstmt.executeUpdate();
+			
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.printStackTrace();		
 		} finally {
-			if (pstmt != null) {
+			if(pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
-		}
-		
-		if (conn != null) {
-			try {
-				conn.close();
-			}catch (SQLException e) {
-				e.printStackTrace();
+			
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		
 	}
+	
 
 }
 

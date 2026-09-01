@@ -6,7 +6,6 @@ import kr.ac.kopo.board.vo.BoardVO;
 
 /**
  * 게시판 CRUD를 위한 DAO 클래스
- * 	--> DB와 controller의 API
  */
 public interface BoardDAO {
 

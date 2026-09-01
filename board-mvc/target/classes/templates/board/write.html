@@ -1,46 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="">
+<style>
 	.error {
 		color: red;
 		font-size: 0.7em;
 		font-style: italic;
 	}
-
 </style>
-
 </head>
 <body>
-	<h2>새글 등록 폼</h2>
+	<h2>새글 등록폼</h2>
 	<hr>
 	<form th:object="${boardVO}" method="post">
 		<table border="1">
 			<tr>
 				<th>제목</th>
-					<td>
-						<input type="text" th:field="*{title}">	<!-- form의 제목의 필드값을 볼려면, * 을 씀 -->
-						<span th:if="${#fields.hasErrors('title')}" th:erros="*{title}" class="error"></span>
-					</td>
-				</tr>
-				<tr>
-					<th>작성자</th>
-					<td>
-						<input type="text" th:field="*{writer}">
-						<span th:if="${#fields.hasErrors('writer')}" th:erros="*{writer}" class="error"></span>
-					</td>	
-				<tr>
-					<th>내용</th>
-					<td>
-						<textarea rows="5" cols="40" th:fields="content"></textarea>
-						<span th:if="${#fields.hasErrors('content')}" th:erros="*{content}" class="error"></span>
-					</td>	
-			</table>
+				<td>
+					<input type="text" th:field="*{title}" >
+					<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error"></span>
+				</td>
+			</tr>
+			<tr>
+				<th>작성자</th>
+				<td>
+					<input type="text" th:field="*{writer}" >
+					<span th:if="${#fields.hasErrors('writer')}" th:errors="*{writer}" class="error"></span>
+				</td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td>
+					<textarea rows="5" cols="40" th:field="*{content}"></textarea>
+					<span th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="error"></span>
+				</td>
+			</tr>
+		</table>
 		<br>
-	<button>등록</button>
+		<button>등록</button>
 	</form>
-
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+

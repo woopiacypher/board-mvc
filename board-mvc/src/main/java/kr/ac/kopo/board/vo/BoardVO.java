@@ -9,14 +9,14 @@ public class BoardVO {
 	/** 번호 */
 	private int no;
 	/** 제목 */
-//	@Length(min=1,max=50,message = "최소2글자 이상 입력")
-	@NotEmpty(message = "필수")
+	@Length(min = 2, max = 50, message = "최소2글자이상 입력해주세요")
+	@NotEmpty(message = "필수항목입니다")
 	private String title;
 	/** 작성자 */
-	@NotEmpty(message = "필수")
+	@NotEmpty(message = "필수항목입니다")
 	private String writer;
 	/** 내용 */
-	@NotEmpty(message = "필수")
+	@NotEmpty(message = "필수항목입니다")
 	private String content;
 	/** 조회수 */
 	private int viewCnt;
