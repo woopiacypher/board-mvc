@@ -1,6 +1,5 @@
 package kr.ac.kopo.board.vo;
 
-import org.apache.ibatis.type.Alias;
 import org.hibernate.validator.constraints.Length;
 
 import jakarta.validation.constraints.NotEmpty;

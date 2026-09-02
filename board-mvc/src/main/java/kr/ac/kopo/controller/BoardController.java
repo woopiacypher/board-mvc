@@ -22,23 +22,23 @@ import kr.ac.kopo.board.vo.BoardVO;
 public class BoardController {
 	
 	@Autowired
-	private BoardService boardService;		//view에서 받은걸 service단에 넘겨야해서 생성자 생성
+	private BoardService boardService;
 	
 	// 전체 게시글 조회 요청
 	@RequestMapping(value="/board")	// GET, POST 요청 둘다 처리
 	public String list(Model model) throws Exception {
 	
-		List<BoardVO> boardList = boardService.getBoardList();	//@Service단으로 넘어간 부분
+		List<BoardVO> boardList = boardService.getBoardList();
 		
-		model.addAttribute("boardList", boardList);	//View에서 받은 form.html의 정보를 셋팅
+		model.addAttribute("boardList", boardList);
 		
-		return "board/list";	// list.html에 리턴반환
+		return "board/list";
 	}
 	
 	
 	// 새글등록폼
 	//@RequestMapping(value = "/board/write",method=RequestMethod.GET)
-	@GetMapping("/board/write")	// get 방식으로 넘어올때,
+	@GetMapping("/board/write")
 	public void writeForm(Model model) {
 		
 		model.addAttribute("boardVO", new BoardVO());
@@ -47,7 +47,7 @@ public class BoardController {
 	// 새글등록폼
 	//@RequestMapping(value = "/board/write",method=RequestMethod.GET)
 	//@GetMapping("/board/write")
-	public String writeForm2() {			// view 단에서 잘못된 오류처리 방지
+	public String writeForm2() {
 		System.out.println("Get /board/write...");
 		return "board/write2";
 	}
@@ -55,7 +55,7 @@ public class BoardController {
 	// 새글등록
 	// title=aa&writer=bb&content=cc
 	//@RequestMapping(value = "/board/write",method=RequestMethod.POST)
-	@PostMapping("/board/write")		// 잘못된 입력에 의한 오류 발생시, 서비스단에서 처리할때,		post방식으로 넘어올때,
+	@PostMapping("/board/write")
 	public String write(@Valid @ModelAttribute BoardVO board, BindingResult result) throws Exception {
 		
 		System.out.println(board);
