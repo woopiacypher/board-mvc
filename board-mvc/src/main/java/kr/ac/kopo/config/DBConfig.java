@@ -12,10 +12,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
-@MapperScan("kr.ac.kopo.mapper")
+@MapperScan("kr.ac.kopo.mapper")		//kr.ac.kopo.mapper.*Mapper interface
 @PropertySource("classpath:config/db.properties")
-@ComponentScan(basePackages = {"kr.ac.kopo.board"})
+@ComponentScan(basePackages = {"kr.ac.kopo.board","kr.ac.kopo.member"})
 @Configuration
 public class DBConfig {
 
@@ -49,12 +50,16 @@ public class DBConfig {
 		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
 		factoryBean.setDataSource(dataSource);
 		
+		//xml mapper 파일 location target
+		factoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/boardMapper.xml"));
+																				// classpath:mapper/*.xml  or  /**/*.xml	** 하위 디렉토리 안에 있는 '모든' xml파일
+		
 		factoryBean.setTypeAliasesPackage("kr.ac.kopo.*.vo");
 		
 		return factoryBean.getObject();
 	}
-	
-	public SqlSessionTemplate sqlSessionTeplate(SqlSessionFactory sqlSessionFactory) {
+	@Bean
+	public SqlSessionTemplate sqlSessionTeplate(SqlSessionFactory sqlSessionFactory) {		//실행하기 위한 메서드
 		return new SqlSessionTemplate(sqlSessionFactory);
 	}
 }
