@@ -20,7 +20,6 @@ public interface BoardMapper {
 	void insert(BoardVO board);
 	
 	@Select("""
-			
 				select no, title, writer, content, view_cnt as viewCnt
 					, to_char(reg_date, 'yyyy-mm-dd') as regDate
 					from tbl_board

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import kr.ac.kopo.member.service.MemberService;
 import kr.ac.kopo.member.vo.MemberVO;
@@ -64,7 +65,24 @@ public class MemberController {
 	}
 	
 	@GetMapping("login")
-	public String login() throws Exception {
+	public String login() {
+		return "member/login";
+	}
+	
+	@PostMapping("/login")
+	public String login(MemberVO member,Model model,HttpSession session) {
 		
+		MemberVO user = memberService.checkMember(member);
+		// 로그인 실패
+		if (user == null) {
+			model.addAttribute("message","아이디와 패스워드");
+			return "member/login";
+		} else {
+			// 로그인 성공
+			// Session(세션)에 로그인 정보 저장
+			session.setAttribute("userVO", user);
+		}
+		
+		return "redirect:/";
 	}
 }
