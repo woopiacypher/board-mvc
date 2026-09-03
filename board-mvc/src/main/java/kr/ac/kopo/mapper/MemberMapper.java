@@ -12,20 +12,27 @@ public interface MemberMapper {
 	@Select("""
 				select *
 					from tbl_member
-					where id = #{id} and password = #{password}
+					where id = #{id} and password = #{pwd}
 			""")
 	MemberVO login(MemberVO loginVO);
-	
+
 	@Select("""
 				select id, name, email, to_char(reg_date, 'yyyy-mm-dd') as regDate
 					from tbl_member
 				order by id
 			""")
 	List<MemberVO> selectAll();
-	
+
 	@Insert("""
 			insert into tbl_member(id, pwd, name, email)
 			values(#{id}, #{pwd}, #{name}, #{email})
 			""")
 	void insert(MemberVO member);
+
+	@Select("""
+				select id, name, email, to_char(reg_date, 'yyyy-mm-dd') as regDate
+					from tbl_member
+					where id = #{id}
+			""")
+	MemberVO selectById(String id);
 }

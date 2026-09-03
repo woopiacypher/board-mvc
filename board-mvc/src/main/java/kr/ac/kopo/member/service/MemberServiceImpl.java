@@ -3,6 +3,7 @@ package kr.ac.kopo.member.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import kr.ac.kopo.member.dao.MemberDAO;
 import kr.ac.kopo.member.vo.MemberVO;
 
@@ -10,31 +11,31 @@ import kr.ac.kopo.member.vo.MemberVO;
 public class MemberServiceImpl implements MemberService {
 
 	@Autowired
-	private MemberDAO memberDao;
-	
+	private MemberDAO memberDAO;
+
 	@Override
 	public List<MemberVO> getMemberList() throws Exception {
-
-			List<MemberVO> getMemberList = memberDao.selectAll();
-			return getMemberList;
-		
+		return memberDAO.selectAll();
 	}
 
 	@Override
-	public void addNewMember(MemberVO member) throws Exception {
-		memberDao.insert(member);
+	public void join(MemberVO member) throws Exception {
+		memberDAO.insert(member);
 	}
 
 	@Override
-	public BoardVO getMemberByMyPage(int memberNo) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public MemberVO getMemberByMyPage(String memberId) throws Exception {
+		return memberDAO.selectById(memberId);
 	}
 
 	@Override
 	public MemberVO checkMember(MemberVO member) {
-		// TODO Auto-generated method stub
-		return null;
+		return memberDAO.login(member);
+	}
+
+	@Override
+	public boolean isDuplicateId(String id) throws Exception {
+		return memberDAO.selectById(id) != null;
 	}
 
 }

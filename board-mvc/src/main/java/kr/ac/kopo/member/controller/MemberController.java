@@ -3,6 +3,7 @@ package kr.ac.kopo.member.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import jakarta.validation.Valid;
 import kr.ac.kopo.member.service.MemberService;
 import kr.ac.kopo.member.vo.MemberVO;
 
+@Controller
 public class MemberController {
 	
 	@Autowired
@@ -25,10 +27,10 @@ public class MemberController {
 	public String list(Model model) throws Exception {
 		
 		List<MemberVO> memberList = memberService.getMemberList();
-		
+		System.out.println(memberList);
 		model.addAttribute("memberList",memberList);
 		
-		return "board/list";
+		return "member/memberlist";
 	}
 	
 	@GetMapping("/member/join")
@@ -39,32 +41,32 @@ public class MemberController {
 	
 	@PostMapping("/member/join")
 	public String join(@Valid @ModelAttribute MemberVO member, BindingResult result) throws Exception {
-		
+
 		if (result.hasErrors()) {
 			System.out.println("입력값 오류!!!");
 			return "member/join";
 		}
-		
+
 		if (memberService.isDuplicateId(member.getId())) {
-			result.rejectValue("id","duplicate","이미 사용중인 아이디");
+			result.rejectValue("id", "duplicate", "이미 사용중인 아이디");
 			return "member/join";
 		}
-		
+
 		memberService.join(member);
-		
+
 		return "redirect:/member";
 	}
 	
 	@GetMapping("/member/{id}")
-	public String MyPage(@PathVariable String memberId, Model model) throws Exception {
-		
-		MemberVO member = memberService.getMemberByMyPage(memberId);
-		model.addAttribute("member",member);
-		
+	public String myPage(@PathVariable String id, Model model) throws Exception {
+
+		MemberVO member = memberService.getMemberByMyPage(id);
+		model.addAttribute("member", member);
+
 		return "member/MyPage";
 	}
 	
-	@GetMapping("login")
+	@GetMapping("/login")
 	public String login() {
 		return "member/login";
 	}

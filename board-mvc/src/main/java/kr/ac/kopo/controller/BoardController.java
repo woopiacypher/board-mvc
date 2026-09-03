@@ -95,7 +95,7 @@ public class BoardController {
 	}
 	// rest방식
 	@GetMapping("/board/{no}")				
-	public String detail2(@PathVariable int boardNo, Model model) throws Exception {
+	public String detail2(@PathVariable("no") int boardNo, Model model) throws Exception {
 		//System.out.println("no : "+boardNo);
 		
 		BoardVO board = boardService.getBoardByBoardNo(boardNo);

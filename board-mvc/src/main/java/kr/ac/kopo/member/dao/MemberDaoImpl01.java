@@ -20,7 +20,7 @@ public class MemberDaoImpl01 implements MemberDAO {
 	
 	@Override
 	public List<MemberVO> selectAll() {
-		return MemberMapper.selectAll();
+		return memberMapper.selectAll();
 	}
 	
 	@Override
@@ -31,8 +31,12 @@ public class MemberDaoImpl01 implements MemberDAO {
 
 	@Override
 	public void insert(MemberVO member) {
-		// TODO Auto-generated method stub
-		
+		memberMapper.insert(member);
+	}
+
+	@Override
+	public MemberVO selectById(String id) {
+		return memberMapper.selectById(id);
 	}
 
 }

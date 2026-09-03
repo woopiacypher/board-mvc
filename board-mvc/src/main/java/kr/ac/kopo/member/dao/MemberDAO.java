@@ -20,4 +20,9 @@ public interface MemberDAO {
 	 */
 	MemberVO login(MemberVO loginVO);
 	
+	/**
+	 * 아이디 단건 조회
+	 */
+	MemberVO selectById(String id);
+	
 }

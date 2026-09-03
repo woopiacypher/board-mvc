@@ -2,34 +2,32 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원 리스트</title>
 <script type="text/javascript">
-	let goWriteForm = function() {
+	let goJoinForm = function() {
 		location.href = "/board-mvc/member/join"
 	}
 </script>
 </head>
 <body>
-	<h2>회원 리스트</h2>
-	
+	<h2>전체 회원 조회</h2>
+
 	<table border="1">
 		<tr>
-			<th>??</th>
-			<th>??</th>
-			<th>??</th>
-			<th>??</th>
+			<th>아이디</th>
+			<th>이름</th>
+			<th>이메일</th>
+			<th>가입일</th>
 		</tr>
 		<tr th:each="member : ${memberList}">
-			<td th:text="${member.id}">123</td>
-				<a th:text="${board.title}" th:href="@{/member/{id} (id=${member.id})}"></a>
-				
-			</td>
-			<td th:text="${member.name}"></td>
-			<td th:text="${member.regDate}"></td>
+			<td><a th:text="${member.id}"
+				th:href="@{/member/{id} (id=${member.id})}"></a></td>
+			<td th:text="${member.name}">홍길동</td>
+			<td th:text="${member.email}">test@test.com</td>
+			<td th:text="${member.regDate}">2026-08-26</td>
 		</tr>
 	</table>
 	<br>
-	<button onclick="goJoinForm">회원 가입</button>
-
+	<button onclick="goJoinForm()">회원가입</button>
 </body>
 </html>
