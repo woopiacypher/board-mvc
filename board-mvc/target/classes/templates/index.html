@@ -8,7 +8,11 @@
 	<h1>MAIN PAGE...</h1>
 	<h2 th:text="${message}"></h2>
 	<p>
-		<a href="/board-mvc/board">게시판</a>
+		<a th:href="@{/board}">게시판</a>
 	</p>
+	<p>
+		<a href="/board-mvc/member">맴버페이지</a>
+	</p>
+	
 </body>
 </html>

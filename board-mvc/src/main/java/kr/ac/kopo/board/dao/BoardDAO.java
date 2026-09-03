@@ -18,4 +18,11 @@ public interface BoardDAO {
 	 * 새글 등록 기능
 	 */
 	void insert(BoardVO board);
+	
+	/**
+	 * 해당 번호의 게시글 조회 기능
+	 * @param boardNo 조회할 글번호
+	 * @return 조회된 게시글
+	 */
+	BoardVO selectByNo(int boardNo);
 }

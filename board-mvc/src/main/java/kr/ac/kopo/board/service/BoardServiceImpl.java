@@ -13,21 +13,24 @@ public class BoardServiceImpl implements BoardService {
 
 	@Autowired
 	private BoardDAO boardDao;
-	
+
 	@Override
 	public List<BoardVO> getBoardList() throws Exception {
 
 		List<BoardVO> boardList = boardDao.selectAll();
-		
+
 		return boardList;
 	}
 
 	@Override
 	public void addNewBoard(BoardVO board) throws Exception {
 		boardDao.insert(board);
-		
+
 	}
-	
-	
+
+	@Override
+	public BoardVO getBoardByBoardNo(int boardNo) throws Exception {
+		return boardDao.selectByNo(boardNo);
+	}
 
 }

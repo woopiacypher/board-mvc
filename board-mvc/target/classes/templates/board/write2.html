@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
-	let checkForm = function() {
+	let checkForm = function() {			// view단에서 잘못된 입력 오류처리 방지
 		let form = document.writeForm
 		if(form.title.value == '') {
 			alert('제목은 필수항목입니다')

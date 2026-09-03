@@ -21,7 +21,11 @@
 		</tr>
 		<tr th:each="board : ${boardList}">
 			<td th:text="${ board.no }">123</td>
-			<td th:text="${ board.title}">헬로 스프링~~</td>
+			<td>
+				<!-- <a th:text="${ board.title}" th:href="@{/board/detail?no={no} (no=${board.no})}"></a> -->
+				<a th:text="${ board.title}" th:href="@{/board/{no} (no=${board.no})}"></a>
+			
+			</td>
 			<td th:text="${ board.writer}">윤길동</td>
 			<td th:text="${ board.regDate}">2026-08-26</td>
 		</tr>

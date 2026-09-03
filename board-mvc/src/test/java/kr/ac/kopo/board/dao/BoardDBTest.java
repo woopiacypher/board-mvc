@@ -14,6 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import kr.ac.kopo.board.vo.BoardVO;
 import kr.ac.kopo.config.DBConfig;
+import kr.ac.kopo.member.vo.MemberVO;
 
 @SpringJUnitConfig(classes = {DBConfig.class})
 public class BoardDBTest {
@@ -39,6 +40,14 @@ public class BoardDBTest {
 		for(BoardVO board : list) {
 			System.out.println(board);
 		}
+	}
+	@Test
+	public void 로그인Test() throws Exception {
+		MemberVO member = new MemberVO();
+		member.setId("user");
+		member.setPwd("user");
+		
+		assertNotNull(member);
 	}
 }
 
