@@ -15,9 +15,9 @@ public class BoardServiceImpl implements BoardService {
 	private BoardDAO boardDao;
 
 	@Override
-	public List<BoardVO> getBoardList() throws Exception {
-
-		List<BoardVO> boardList = boardDao.selectAll();
+	public List<BoardVO> getBoardList(int page, int pageSize) throws Exception {
+		int offset = (page - 1)*pageSize;
+		List<BoardVO> boardList = boardDao.selectAll(offset, pageSize);
 
 		return boardList;
 	}
@@ -30,6 +30,21 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public BoardVO getBoardByBoardNo(int boardNo) throws Exception {
 		return boardDao.selectByNo(boardNo);
+	}
+
+	@Override
+	public int getTotalCount() throws Exception {
+		return boardDao.getTotalCount();
+	}
+
+	@Override
+	public void increaseViewCnt(int boardNo) throws Exception {
+		boardDao.updateViewCnt(boardNo);
+	}
+
+	@Override
+	public void modifyBoard(BoardVO board) throws Exception {
+		boardDao.update(board);
 	}
 
 }

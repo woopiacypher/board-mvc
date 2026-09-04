@@ -5,31 +5,29 @@
 <title>Insert title here</title>
 <script th:inline="javascript">
 	document.addEventListener('DOMContentLoaded', function() {
-		
-		let listBtn = document.getElementById("lBtn")
+
+		const listBtn = document.getElementById("lBtn")
 		const mBtn = document.getElementById("mBtn")
-		const dBtn = document.querySelector('#dBtn')
-		
+
 		// 목록이동
-		listBtn.addEventListener('click' function() {
-			location.href = /*[[@{/board}]]*/ '/board-mvc/board/list'
-		})
-		// 수정이동
-		mBtn.addEventListener('click', function() {
-			location.href = [[@{/board/modify/{no} (no=${board.no})}]]
-		})
-		
-		// 삭제이동
-		dBtn.addEventListener
-			location.href = [[@{/board/del/{no} (no=${board.no})}]]
+		listBtn.addEventListener('click', function() {
+			location.href = /*[[@{/board}]]*/ '/board-mvc/board'
 		})
 
+		// 수정이동
+		if (mBtn) {
+			mBtn.addEventListener('click', function() {
+				location.href = /*[[@{/board/modify/{no}(no=${board.no})}]]*/ '/board-mvc/board/modify/1'
+			})
+		}
+
+	})
 </script>
 </head>
 <body>
 	<h2>상세 게시글</h2>
 	<hr>
-	
+
 	<table border="1">
 		<tr>
 			<td>번호</td>
@@ -57,9 +55,10 @@
 		</tr>
 	</table>
 	<br>
-	<button id="mBtn">수정</button>	
-	<button id="dBtn">삭제</button>	
-	<button id="lBtn">목록</button>	
-		
+	<span th:if="${session.userVO != null and session.userVO.id == board.writer}">
+		<button id="mBtn">수정</button>
+	</span>
+	<button id="lBtn">목록</button>
+
 </body>
 </html>

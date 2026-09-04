@@ -34,6 +34,16 @@
 		</tr>
 		
 	</table>
+		<a th:if="${pageVO.hasPrevBlock}" th:href="@{/board(page=${pageVO.startPage - 1})}">이전5</a>
+
+		<span th:each="p : ${#numbers.sequence(pageVO.startPage, pageVO.endPage)}">
+			&nbsp;
+			<a th:if="${p != pageVO.currentPage}" th:text="${p}" th:href="@{/board(page=${p})}"></a>
+			<b th:if="${p == pageVO.currentPage}" th:text="${p}"></b>
+			&nbsp;
+		</span>
+	
+		<a th:if="${pageVO.hasNextBlock}" th:href="@{/board(page=${pageVO.endPage + 1})}">다음5</a>
 	<br>
 	<span th:if="${session.userVO != null}">
 	<button onclick="goWriteForm()">새글등록</button>

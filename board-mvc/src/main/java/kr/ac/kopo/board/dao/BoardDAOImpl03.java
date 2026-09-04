@@ -17,7 +17,7 @@ public class BoardDAOImpl03 implements BoardDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	@Override
-	public List<BoardVO> selectAll() {
+	public List<BoardVO> selectAll(int offset, int pageSize) {
 		System.out.println("BoardDAOImp03...selectAll");
 		List<BoardVO> boardList = sqlSessionTemplate.selectList("board.dao.BoardDAO.selectAll");	//CRUD 다 SqlSessionTemplate에서 제공하는 메서드를 사용해야함
 		return boardList;
@@ -33,6 +33,24 @@ public class BoardDAOImpl03 implements BoardDAO {
 	public BoardVO selectByNo(int boardNo) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int getTotalCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void updateViewCnt(int boardNo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(BoardVO board) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

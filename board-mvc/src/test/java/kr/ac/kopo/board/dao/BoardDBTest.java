@@ -35,8 +35,8 @@ public class BoardDBTest {
 	}
 	
 	@Test
-	public void 전체게시글조회() throws Exception {
-		List<BoardVO> list = boardDao.selectAll();
+	public void 전체게시글조회(int offset, int pageSize) throws Exception {
+		List<BoardVO> list = boardDao.selectAll(offset, pageSize);
 		for(BoardVO board : list) {
 			System.out.println(board);
 		}

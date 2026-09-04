@@ -27,7 +27,7 @@ public class BoardDAOImpl01 implements BoardDAO {
 	private DataSource ds;
 	
 	@Override
-	public List<BoardVO> selectAll() {
+	public List<BoardVO> selectAll(int offset, int pageSize) {
 
 		List<BoardVO> boardList = new ArrayList<>();
 		
@@ -137,8 +137,26 @@ public class BoardDAOImpl01 implements BoardDAO {
 
 	@Override
 	public BoardVO selectByNo(int boardNo) {
-		// TODO Auto-generated method stub
+		
 		return null;
+	}
+
+	@Override
+	public int getTotalCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void updateViewCnt(int boardNo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(BoardVO board) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 

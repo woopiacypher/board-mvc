@@ -24,6 +24,7 @@ public class BoardVO {
 	/** 등록일 */
 	private String regDate;
 	
+	
 	public BoardVO() {
 		super();
 		// TODO Auto-generated constructor stub

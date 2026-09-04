@@ -25,20 +25,35 @@ public class BoardDAOImpl02 implements BoardDAO {
 	}
 	
 	@Override
-	public List<BoardVO> selectAll() {
-		return boardMapper.selectAll();
+	public List<BoardVO> selectAll(int offset, int pageSize) {
+		return boardMapper.selectAll(offset, pageSize);
 	}
 
 	@Override
 	public void insert(BoardVO board) {
 		//sqlSessionTemplate.insert("board.dao.BoardDAO.insert", board);
-		
 		boardMapper.insert(board);
 	}
 
 	@Override
 	public BoardVO selectByNo(int boardNo) {
 		return boardMapper.selectByNo(boardNo);
+	}
+
+	@Override
+	public int getTotalCount() {
+		return boardMapper.getTotalCount();
+	}
+
+	@Override
+	public void updateViewCnt(int boardNo) {
+		boardMapper.updateViewCnt(boardNo);
+	}
+
+	@Override
+	public void update(BoardVO board) {
+		boardMapper.update(board);
+		
 	}
 
 }

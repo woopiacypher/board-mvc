@@ -12,7 +12,7 @@ public interface BoardDAO {
 	/**
 	 * 전체게시글 조회 기능
 	 */
-	List<BoardVO> selectAll();
+	List<BoardVO> selectAll(int offset, int pageSize);
 	
 	/**
 	 * 새글 등록 기능
@@ -25,4 +25,10 @@ public interface BoardDAO {
 	 * @return 조회된 게시글
 	 */
 	BoardVO selectByNo(int boardNo);
+	
+	int getTotalCount();
+	
+	void updateViewCnt(int boardNo);
+	
+	void update(BoardVO board);
 }

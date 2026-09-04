@@ -6,17 +6,23 @@
 	<!-- 
 	
 		BoardMapper.java 메퍼일터페이스를 활용한 xml 매터파일(BoardDAOImpl02.java)
-	
+		.xml의 쿼리문에는 ; 붙이지 X
 	 -->
 		<select id="selectAll" resultType="boardVO">
-			select no, title, writer, to_char(reg_date, 'yyyy-mm-dd hh:mi:ss') as regDate
-			from tbl_board
-			order by no desc
+				select no, title, writer, to_char(reg_date, 'yyyy-mm-dd hh:mi:ss') as regDate
+				from tbl_board
+				order by no desc
+				offset #{offset} rows fetch next #{pageSize} rows only
 		</select>
 		
 		<insert id="insert" parameterType="boardVO">
 			insert into tbl_board(no, title, writer, content)
 				values(seq_tbl_board_no.nextval,#{title},#{writer},#{content})
 		</insert>
+		
+		<select id = "getTotalCount" resultType="int">
+			select count(*)
+			from tbl_board
+		</select>
 
 </mapper>

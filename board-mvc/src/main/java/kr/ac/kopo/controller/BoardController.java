@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import kr.ac.kopo.board.service.BoardService;
 import kr.ac.kopo.board.vo.BoardVO;
+import kr.ac.kopo.board.vo.PageVO;
 import kr.ac.kopo.member.vo.MemberVO;
 
 /**
@@ -25,17 +26,23 @@ import kr.ac.kopo.member.vo.MemberVO;
 @Controller
 public class BoardController {
 	
+	private static final int PAGE_SIZE = 10;	// 한 페이지에 나타날 게시글 수
+	private static final int PAGE_BLOCK = 5;	// 페이지 번호 갯수
+	
 	@Autowired
 	private BoardService boardService;		//view에서 받은걸 service단에 넘겨야해서 생성자 생성
 	
 	// 전체 게시글 조회 요청
 	@RequestMapping(value="/board")	// GET, POST 요청 둘다 처리
-	public String list(Model model) throws Exception {
-	
-		List<BoardVO> boardList = boardService.getBoardList();	//@Service단으로 넘어간 부분
+	public String list(@RequestParam(value="page" , defaultValue = "1") int page, Model model) throws Exception {
+		
+		int totalCount = boardService.getTotalCount();
+		PageVO pageVO = new PageVO(page, totalCount, PAGE_SIZE, PAGE_BLOCK);
+		
+		List<BoardVO> boardList = boardService.getBoardList(page, PAGE_SIZE);	//@Service단으로 넘어간 부분
 		
 		model.addAttribute("boardList", boardList);	//View에서 받은 form.html의 정보를 셋팅
-		
+		model.addAttribute("pageVO", pageVO);
 		return "board/list";	// list.html에 리턴반환
 	}
 	
@@ -100,6 +107,7 @@ public class BoardController {
 	public String detail(@RequestParam("no") int boardNo, Model model) throws Exception {
 		//System.out.println("no : "+boardNo);
 		
+		boardService.increaseViewCnt(boardNo);
 		BoardVO board = boardService.getBoardByBoardNo(boardNo);
 		model.addAttribute("board",board);
 		
@@ -110,11 +118,53 @@ public class BoardController {
 	public String detail2(@PathVariable("no") int boardNo, Model model) throws Exception {
 		//System.out.println("no : "+boardNo);
 		
+		boardService.increaseViewCnt(boardNo);
 		BoardVO board = boardService.getBoardByBoardNo(boardNo);
 		model.addAttribute("board",board);
 		
 		return "board/detail";
 	}
+	// 게시글 수정 페이지 진입
+	@GetMapping("/board/modify/{no}")
+	public String modifyForm(@PathVariable("no") int boardNo, Model model, HttpSession session) throws Exception {
+
+		MemberVO user = (MemberVO) session.getAttribute("userVO");
+		if (user == null) {
+			return "redirect:/login";
+		}
+
+		BoardVO board = boardService.getBoardByBoardNo(boardNo);
+
+		if (!board.getWriter().equals(user.getId())) {
+			return "redirect:/board/" + boardNo;
+		}
+
+		model.addAttribute("boardVO", board);
+
+		return "board/modify";
+	}
+	// 게시글 수정
+	@PostMapping("/board/modify/{no}")
+	public String modify(@PathVariable("no") int boardNo, @Valid @ModelAttribute BoardVO board,
+			BindingResult result, HttpSession session) throws Exception {
+
+		MemberVO user = (MemberVO) session.getAttribute("userVO");
+		if (user == null) {
+			return "redirect:/login";
+		}
+
+		board.setNo(boardNo);
+		
+		if (result.hasErrors()) {
+			return "board/modify";
+		}
+
+
+		boardService.modifyBoard(board);
+
+		return "redirect:/board/" + boardNo;
+	}
+	
 }
 
 
