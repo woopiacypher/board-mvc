@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script th:inline="javascript">
+	document.addEventListener('DOMContentLoaded', function() {
+		
+		let listBtn = document.getElementById("lBtn")
+		const mBtn = document.getElementById("mBtn")
+		const dBtn = document.querySelector('#dBtn')
+		
+		// 목록이동
+		listBtn.addEventListener('click' function() {
+			location.href = /*[[@{/board}]]*/ '/board-mvc/board/list'
+		})
+		// 수정이동
+		mBtn.addEventListener('click', function() {
+			location.href = [[@{/board/modify/{no} (no=${board.no})}]]
+		})
+		
+		// 삭제이동
+		dBtn.addEventListener
+			location.href = [[@{/board/del/{no} (no=${board.no})}]]
+		})
+
+</script>
+</head>
+<body>
+	<h2>상세 게시글</h2>
+	<hr>
+	
+	<table border="1">
+		<tr>
+			<td>번호</td>
+			<td th:text="${board.no}"></td>
+		</tr>
+		<tr>
+			<td>제목</td>
+			<td th:text="${board.title}"></td>
+		</tr>
+		<tr>
+			<td>작성자</td>
+			<td th:text="${board.writer}"></td>
+		</tr>
+		<tr>
+			<td>내용</td>
+			<td th:text="${board.content}"></td>
+		</tr>
+		<tr>
+			<td>조회수</td>
+			<td th:text="${board.viewCnt}"></td>
+		</tr>
+		<tr>
+			<td>등록일</td>
+			<td th:text="${board.regDate}"></td>
+		</tr>
+	</table>
+	<br>
+	<button id="mBtn">수정</button>	
+	<button id="dBtn">삭제</button>	
+	<button id="lBtn">목록</button>	
+		
+</body>
+</html>

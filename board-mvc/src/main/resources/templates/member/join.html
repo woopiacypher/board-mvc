@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>회원가입</title>
+<style>
+.error {
+	color: red;
+	font-size: 0.7em;
+	font-style: italic;
+}
+</style>
+</head>
+<body>
+	<h2>회원가입</h2>
+	<hr>
+	<form th:object="${memberVO}" method="post">
+		<table border="1">
+			<tr>
+				<th>아이디</th>
+				<td><input type="text" th:field="*{id}"> <span
+					th:if="${#fields.hasErrors('id')}" th:errors="*{id}" class="error"></span>
+				</td>
+			</tr>
+			<tr>
+				<th>비밀번호</th>
+				<td><input type="password" th:field="*{pwd}"> <span
+					th:if="${#fields.hasErrors('pwd')}" th:errors="*{pwd}"
+					class="error"></span></td>
+			</tr>
+			<tr>
+				<th>이름</th>
+				<td><input type="text" th:field="*{name}"> <span
+					th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+					class="error"></span></td>
+			</tr>
+			<tr>
+				<th>이메일</th>
+				<td><input type="text" th:field="*{email}"> <span
+					th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+					class="error"></span></td>
+			</tr>
+		</table>
+		<br>
+		<button>가입하기</button>
+		
+		<p>
+		<a th:href="@{/login}">로그인으로 돌아가기</a>
+	</p>
+	</form>
+</body>
+</html>

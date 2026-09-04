@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	.error {
+		color: red;
+		font-size: 0.7em;
+		font-style: italic;
+	}
+</style>
+</head>
+<body>
+	<h2>새글 등록폼</h2>
+	<hr>
+	<form th:object="${boardVO}" method="post">
+		<table border="1">
+			<tr>
+				<th>제목</th>
+				<td>
+					<input type="text" th:field="*{title}" >
+					<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error"></span>
+				</td>
+			</tr>
+			<tr>
+				<th>작성자</th>
+				<td>
+					<input type="text" th:field="*{writer}" readonly="readonly" >
+					<span th:if="${#fields.hasErrors('writer')}" th:errors="*{writer}" class="error"></span>
+				</td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td>
+					<textarea rows="5" cols="40" th:field="*{content}"></textarea>
+					<span th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="error"></span>
+				</td>
+			</tr>
+		</table>
+		<br>
+		<button>등록</button>
+	</form>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
